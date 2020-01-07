@@ -12,6 +12,7 @@ class MyViewController: UIViewController {
     var collectionView: UICollectionView!
     var items = [ExampleItem(cornerRadius: 0), ExampleItem(cornerRadius: 0.1), ExampleItem(cornerRadius: 10)]
     let cellReuseIdentifier = "GenericCell"
+    
     func testIntersections() {
         let path1 = UIBezierPath(rect: .init(x: 10, y: 10, width: 100, height: 100))
         let path2 = UIBezierPath(rect: .init(x: 20, y: 20, width: 100, height: 100))
@@ -27,12 +28,14 @@ class MyViewController: UIViewController {
             }
         }
     }
+    
     private func initViewController() {
         let guide = self.view.safeAreaLayoutGuide
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .init(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 0).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 0).isActive = true
         collectionView.leftAnchor.constraint(equalTo: guide.leftAnchor, constant: 0).isActive = true
@@ -45,6 +48,7 @@ class MyViewController: UIViewController {
         collectionView.dragInteractionEnabled = true
         collectionView.reloadData()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         testIntersections()
@@ -74,5 +78,4 @@ extension MyViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         return [UIDragItem(itemProvider: NSItemProvider(object: "item" as NSString))]
     }
-    
 }
